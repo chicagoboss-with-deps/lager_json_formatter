@@ -14,14 +14,15 @@ format(Msg, Config) ->
     {handler, fun json_handler/1},
     {utf8, proplists:get_value(utf8, Config, true)}
   ]),
-  [Encoder(Msg), <<"\n">>].
+  [Encoder(Msg), <<",\n">>].
 
 -spec json_handler(lager_msg:lager_msg()) -> any().
 json_handler(Msg) ->
   {Date, Time} = lager_msg:datetime(Msg),
   Metadata = [ {K, make_printable(V)} || {K, V} <- lager_msg:metadata(Msg)],
   {struct, [
-    {<<"@timestamp">>, iolist_to_binary([Date, $T, Time, $Z])},
+    {date, iolist_to_binary(Date)},
+    {time, iolist_to_binary(Time)},
     {message, iolist_to_binary(lager_msg:message(Msg))},
     {level, severity_to_binary(lager_msg:severity(Msg))},
     {level_as_int, lager_msg:severity_as_int(Msg)},
