@@ -14,7 +14,7 @@ format(Msg, Config) ->
     {handler, fun json_handler/1},
     {utf8, proplists:get_value(utf8, Config, true)}
   ]),
-  [Encoder(Msg), <<",\n">>].
+  [Encoder(Msg), <<"\n">>].
 
 -spec json_handler(lager_msg:lager_msg()) -> any().
 json_handler(Msg) ->
