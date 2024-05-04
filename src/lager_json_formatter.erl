@@ -31,7 +31,7 @@ json_handler(Msg) ->
 
 make_printable(A) when is_atom(A) orelse is_binary(A) orelse is_number(A) -> A;
 make_printable(P) when is_pid(P) -> iolist_to_binary(pid_to_list(P));
-make_printable(S) when is_bitstring(S) -> Other);
+make_printable(S) when is_bitstring(S) -> S;
 make_printable(Other) -> 
     case io_lib:printable_list(Other) of 
         true -> iolist_to_binary(Other);
