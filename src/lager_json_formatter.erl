@@ -35,7 +35,7 @@ make_printable(S) when is_bitstring(S) -> S;
 make_printable(Other) -> 
     case io_lib:printable_list(Other) of 
         true -> iolist_to_binary(Other);
-        _ -> iolist_to_binary(io_lib:format("~s",[Other]))
+        _ -> iolist_to_binary(io_lib:format("~p",[Other]))
     end.
 
 severity_to_binary(debug)     -> <<"DEBUG">>;
